@@ -16,7 +16,8 @@ public class Menu {
                     "\n(2) Search for movie by title" +
                     "\n(3) Sort movie by rating" +
                     "\n(4) Get Basic info from movies" +
-                    "\n(5) Close program");
+                    "\n(5) Generate new CSV file" +
+                    "\n(6) Close program");
             String menuChoice = input.nextLine();
             switch (menuChoice) {
                 case "1":
@@ -32,6 +33,10 @@ public class Menu {
                     readFile.getBasicData();
                     break;
                 case "5":
+                    readFile.generateCSVFile();
+                    break;
+                case "6":
+                    System.out.println("Program closing...");
                     running = false;
                     break;
             }

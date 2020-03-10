@@ -2,6 +2,7 @@ package com.example.cvs_assignment;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Scanner;
 public class FileHandler {
     private String file = "";
     private List<Movie> movieList = new ArrayList<>();
+    Scanner input = new Scanner(System.in);
 
     public void readFile(String file){
         file = "movie_metadata_500.csv";
@@ -51,6 +53,65 @@ public class FileHandler {
                     "\nRating: " + movie.getImdb_score() +
                     "\nPrimary Actor: " + movie.getActor_1_name() +
                     "\n");
+        }
+    }
+
+    public void generateCSVFile(){
+        try{
+            System.out.println("Write file name: ");
+            String fileName = input.nextLine();
+
+            String csvFile = fileName + ".csv";
+            FileWriter fileWriter = new FileWriter(csvFile);
+
+            //TODO let user decide which colums to export?
+            fileWriter.append("Movie_Title");
+            fileWriter.append(',');
+            fileWriter.append("IMDB_Score");
+            fileWriter.append(',');
+            fileWriter.append("Release_Year");
+            fileWriter.append(',');
+            fileWriter.append("Director_Name");
+            fileWriter.append(',');
+            fileWriter.append("Actor_1_Name");
+            fileWriter.append(',');
+            fileWriter.append("Actor_2_Name");
+            fileWriter.append(',');
+            fileWriter.append("Actor_3_Name");
+            fileWriter.append(',');
+            fileWriter.append("Genres");
+            fileWriter.append(',');
+            fileWriter.append("IMDB_Link");
+            fileWriter.append('\n');
+
+            //TODO let user decide which colums to export?
+            for(Movie movie : movieList) {
+                fileWriter.append(movie.getMovie_title());
+                fileWriter.append(',');
+                fileWriter.append(Double.toString(movie.getImdb_score()));
+                fileWriter.append(',');
+                fileWriter.append(movie.getTitle_year());
+                fileWriter.append(',');
+                fileWriter.append(movie.getDirector_name());
+                fileWriter.append(',');
+                fileWriter.append(movie.getActor_1_name());
+                fileWriter.append(',');
+                fileWriter.append(movie.getActor_2_name());
+                fileWriter.append(',');
+                fileWriter.append(movie.getActor_3_name());
+                fileWriter.append(',');
+                fileWriter.append(movie.getGenres());
+                fileWriter.append(',');
+                fileWriter.append(movie.getMovie_imdb_link());
+                fileWriter.append('\n');
+            }
+
+            fileWriter.flush();
+            fileWriter.close();
+            System.out.println("CSV file with the name '" + fileName + " ' generated!");
+
+        } catch(Exception e) {
+            e.printStackTrace();
         }
     }
 
